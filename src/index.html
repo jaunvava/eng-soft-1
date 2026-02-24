@@ -3,19 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MyFinances</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
+
     <nav class="menu">
-        <div class="logo">My<span>Finances</span></div>
+        <div class="logo"><span>MyFinances</span></div>
         <ul class="navegacao">
-            <li>aDashboard</li>
+            <li>Dashboard</li>
             <li>Transações</li>
             <li>Orçamentos</li>
             <li>Relatórios</li>
             <li>Categorias</li>    
         </ul>
     </nav>
+
+    <section class="dashboard">
+        <div class="cards">
+            <div class="card">
+                <h2><strong>Saldo Atual</strong></h2>
+                <h4 style="color: green;">R$ 4100.00</h4>
+            </div>
+            <div class="card">
+                <h2>Despesas</h2>
+                <div class="grafico">
+                    <h2>Despesas por Categoria</h2>
+                    <canvas id="despesasPorCategoria"></canvas>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
