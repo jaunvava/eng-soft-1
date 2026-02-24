@@ -7,12 +7,21 @@ function criarGrafico(idCanvas, tipo, labels, dados, labelDataset) {
             labels: labels,
             datasets: [{
                 label: labelDataset,
-                data: dados
+                data: dados,
+                 backgroundColor: [
+                    'rgba(35, 186, 1, 0.6)',  // vermelho
+                    'rgba(255, 0, 0, 0.6)'   // verde
+                ],
+                borderColor: [
+                    'rgba(35, 186, 1, 0.6)',
+                    'rgba(255, 0, 0, 0.6)' 
+                ],
+                borderWidth: 2
             }]
         }
     });
 }
 
-criarGrafico('despesasPorCategoria', 'bar', ['Alimentação', 'Transporte'], [500, 300], 'Despesas');
+criarGrafico('despesasPorCategoria', 'bar', ['Receitas', 'Despesas'], [5000, 900], 'Despesas', 'Receitas', );
 criarGrafico('receitasPorCategoria', 'line', ['Salário', 'Freela'], [3000, 800], 'Receitas');
 criarGrafico('saldoMensal', 'bar', ['Jan', 'Fev'], [1200, 1800], 'Saldo');
