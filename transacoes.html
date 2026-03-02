@@ -76,7 +76,17 @@
             <div class="card">
                 <h3>Adicionar Despesa</h3>
                 <form id="formDespesa">
-                    <input type="text" placeholder="Ex: Alimentação" required />
+                    <div class="adicionarDespesas">
+                        <select required>
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="">Essencial</option>
+                            <option value="">Transporte</option>
+                            <option value="">Alimentação</option>
+                            <option value="">Estudo</option>
+                            <option value="">Outros</option>
+                        </select>
+                        <input type="number" placeholder="R$" min="0" required />
+                    </div>
                     <button type="submit" class="buttonConfirmar">
                         Adicionar Despesa
                     </button>
