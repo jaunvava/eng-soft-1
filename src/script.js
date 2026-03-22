@@ -30,7 +30,7 @@ const routes = {
     init: () => typeof initDashboard === 'function' && initDashboard()
   },
   transacoes: {
-    url: "alissonTransacoes/transacoes.html",
+    url: "transacoes/transacoes.html",
     init: () => typeof initTransacoes === 'function' && initTransacoes()
   },
   categorias: {
