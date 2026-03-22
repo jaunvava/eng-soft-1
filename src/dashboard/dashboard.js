@@ -11,8 +11,8 @@ function initDashboard() {
       receitas += t.valor;
     } else {
       despesas += t.valor;
-      if (gastosPorCategoria[t.categoria] !== undefined) {
-        gastosPorCategoria[t.categoria] += t.valor;
+      if (gastosPorCategoria[t.categoriaId] !== undefined) {
+        gastosPorCategoria[t.categoriaId] += t.valor;
       } else {
         gastosPorCategoria["Outros"] = (gastosPorCategoria["Outros"] || 0) + t.valor;
       }
