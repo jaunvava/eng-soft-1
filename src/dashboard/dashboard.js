@@ -32,7 +32,8 @@ function initDashboard() {
   // Charts
   const ctxSaldo = document.getElementById("graficoSaldo");
   if (ctxSaldo) {
-    new Chart(ctxSaldo.getContext("2d"), {
+    if (window.chartSaldo) window.chartSaldo.destroy();
+    window.chartSaldo = new Chart(ctxSaldo.getContext("2d"), {
       type: "line",
       data: {
         labels: ["Início", "Atual"],
@@ -51,7 +52,8 @@ function initDashboard() {
 
   const ctxDespesas = document.getElementById("graficoDespesas");
   if (ctxDespesas) {
-    new Chart(ctxDespesas.getContext("2d"), {
+    if (window.chartDespesas) window.chartDespesas.destroy();
+    window.chartDespesas = new Chart(ctxDespesas.getContext("2d"), {
       type: "doughnut",
       data: {
         labels: Object.keys(gastosPorCategoria),

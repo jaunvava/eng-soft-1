@@ -21,45 +21,30 @@ function saveData(data) {
 }
 
 function formatarMoeda(valor) {
-  return `R$ ${valor.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  return `R$ ${valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
 const routes = {
   dashboard: {
     url: "dashboard/dashboard.html",
-    init: () =>
-      typeof initDashboard === "function"
-        ? initDashboard()
-        : console.warn("initDashboard not found"),
+    init: () => typeof initDashboard === 'function' && initDashboard()
   },
   transacoes: {
-    url: "transacoes/transacoes.html",
-    init: () =>
-      typeof initTransacoes === "function"
-        ? initTransacoes()
-        : console.warn("initTransacoes not found"),
+    url: "alissonTransacoes/transacoes.html",
+    init: () => typeof initTransacoes === 'function' && initTransacoes()
   },
   categorias: {
     url: "categorias/categorias.html",
-    init: () =>
-      typeof initCategorias === "function"
-        ? initCategorias()
-        : console.warn("initCategorias not found"),
+    init: () => typeof initCategorias === 'function' && initCategorias()
   },
   relatorios: {
     url: "relatorios/relatorios.html",
-    init: () =>
-      typeof initRelatorios === "function"
-        ? initRelatorios()
-        : console.warn("initRelatorios not found"),
+    init: () => typeof initRelatorios === 'function' && initRelatorios()
   },
   orcamento: {
     url: "orcamentos/orcamento.html",
-    init: () =>
-      typeof initOrcamento === "function"
-        ? initOrcamento()
-        : console.warn("initOrcamento not found"),
-  },
+    init: () => typeof initOrcamento === 'function' && initOrcamento()
+  }
 };
 
 async function navigateTo(pageKey) {
@@ -72,22 +57,20 @@ async function navigateTo(pageKey) {
   try {
     const response = await fetch(route.url);
     const html = await response.text();
-
+    
     contentArea.innerHTML = html;
-
-    document.querySelectorAll(".nav-link").forEach((link) => {
+    
+    document.querySelectorAll(".nav-link").forEach(link => {
       link.classList.remove("active");
       if (link.getAttribute("onclick")?.includes(pageKey)) {
         link.classList.add("active");
       }
     });
 
-    const navbarCollapse = document.getElementById("navbarNav");
-    if (navbarCollapse && navbarCollapse.classList.contains("show")) {
-      const bsCollapse =
-        bootstrap.Collapse.getInstance(navbarCollapse) ||
-        new bootstrap.Collapse(navbarCollapse);
-      bsCollapse.hide();
+    const navbarCollapse = document.getElementById('navbarNav');
+    if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse) || new bootstrap.Collapse(navbarCollapse);
+        bsCollapse.hide();
     }
 
     route.init();
@@ -95,6 +78,7 @@ async function navigateTo(pageKey) {
     setTimeout(() => {
       contentArea.classList.add("loaded");
     }, 50);
+
   } catch (error) {
     console.error("Erro ao carregar página:", error);
     contentArea.innerHTML = `<div class="alert alert-danger">Erro ao carregar a página: ${error.message}</div>`;
@@ -102,5 +86,5 @@ async function navigateTo(pageKey) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  navigateTo("dashboard");
+    navigateTo('dashboard');
 });

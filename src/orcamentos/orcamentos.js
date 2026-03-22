@@ -6,7 +6,6 @@ function initOrcamento() {
   function renderOrc() {
     if (!lista || !select) return;
     
-    // Fill select
     select.innerHTML = '<option value="" disabled selected>Selecione a categoria...</option>';
     data.categorias.forEach((c) => {
       const opt = document.createElement("option");
