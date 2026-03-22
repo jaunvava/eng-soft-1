@@ -17,7 +17,6 @@ h1, h2, h3, .navbar-brand {
     font-family: 'Oswald', sans-serif;
 }
 
-/* Transações List Styling */
 .infoTransacoes {
     display: grid;
     grid-template-columns: 0.5fr 1fr 2fr 1.5fr 1fr 1fr;
@@ -43,7 +42,6 @@ h1, h2, h3, .navbar-brand {
     white-space: nowrap;
 }
 
-/* Modal / Dialog Styling */
 dialog {
     border: none;
     border-radius: 16px;
@@ -59,7 +57,7 @@ dialog::backdrop {
     cursor: pointer;
 }
 
-/* Transaction List Buttons */
+
 .buttonDepositar.Editar {
     background-color: #f3f4f6;
     color: #4b5563;
@@ -77,7 +75,6 @@ dialog::backdrop {
     color: #1f2933;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .infoTransacoes {
         grid-template-columns: 1fr 1fr;
@@ -97,7 +94,6 @@ dialog::backdrop {
     .infoTransacoes button { grid-column: 1 / span 2; width: 100% !important; margin-top: 5px; }
 }
 
-/* Animation */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }

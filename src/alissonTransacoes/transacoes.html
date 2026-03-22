@@ -1,186 +1,117 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<link rel="stylesheet" href="alissonTransacoes/style.css">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finanças Pessoais - Transações</title>
-    <!-- Bootstrap 5 CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="/src/alissonTransacoes/style.css">
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top" style="background-color: #1f2933;">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="../main.html">
-                <i class="fa-solid fa-wallet me-2 text-info"></i>FINANÇAS PESSOAIS
-            </a>
-            <div class="ms-auto d-flex align-items-center me-3 order-lg-2">
-                <div class="saldo Nav px-3 py-1 bg-white rounded-pill fw-bold" id="saldo" style="color: #15803d; font-family: 'Inter', sans-serif;"> 
-                    R$ 0,00
-                </div>
-            </div>
-            <button class="navbar-toggler border-0 order-lg-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+<div class="transacoes-container animate__animated animate__fadeIn">
+    <div class="card shadow-sm p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold mb-0">Todas as Transações</h2>
+            <button type="button" class="btn btn-success fw-bold" id="botaoAbrirTransacao">
+                <i class="fa-solid fa-plus me-2"></i>Realizar Transação
             </button>
-            <div class="collapse navbar-collapse order-lg-1" id="navbarNav">
-                <ul class="navbar-nav ms-auto mt-3 mt-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../main.html">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="transacoes.html">Transações</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../categorias/categorias.html">Categorias</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../relatorios/relatorios.html">Relatórios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../orcamentos/orcamento.html">Orçamento</a>
-                    </li>
-                </ul>
-            </div>
         </div>
-    </nav>
 
-    <main class="container py-5">
-        <div class="transacoes-container animate__animated animate__fadeIn">
-            <div class="card shadow-sm p-4">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="fw-bold mb-0">Todas as Transações</h2>
-                    <button type="button" class="btn btn-success fw-bold" id="botaoAbrirTransacao">
-                        <i class="fa-solid fa-plus me-2"></i>Realizar Transação
-                    </button>
-                </div>
-
-                <div class="transacoes-header d-none d-md-grid infoTransacoes fw-bold text-muted small text-uppercase mb-2 bg-light p-2 rounded">
-                    <p class="mb-0">ID</p>
-                    <p class="mb-0">Data</p>
-                    <p class="mb-0">Descrição</p>
-                    <p class="mb-0">Tipo/Cat.</p>
-                    <p class="mb-0">Valor (R$)</p>
-                    <p class="mb-0 text-center">Ações</p>
-                </div>
-                <hr class="my-1">
-                <div id="listaTransacoes" class="mt-2">
-                    <!-- Transações inseridas via JS -->
+        <div class="table-responsive">
+            <div id="listaTransacoes" class="mt-2">
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Carregando...</span>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <dialog id="modalDialog" class="border-0 rounded-4 shadow-lg p-0" style="max-width: 500px; width: 90%;">
-            <div class="card border-0">
-                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3 px-4 rounded-top-4">
-                    <h3 class="mb-0 fs-5 fw-bold">Nova Transação</h3>
-                    <button type="button" class="btn-close btn-close-white buttonFechar" id="botaoFechar"></button>
-                </div>
-                <div class="card-body p-4">
-                    <form id="formTransacao">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-uppercase">Tipo</label>
-                            <select id="tipo" class="form-select" required>
-                                <option value="receita">RECEITA</option>
-                                <option value="despesa">DESPESA</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-uppercase">Valor R$</label>
-                            <input id="valor" class="form-select" type="number" placeholder="0.00" min="0" step="0.01" required />
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-uppercase">Data</label>
-                            <input id="data" class="form-control" type="date" required />
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-uppercase">Descrição</label>
-                            <input id="descricao" class="form-control" type="text" placeholder="Ex: Mercado, Salário..." required />
-                        </div>
-
-                        <div class="mb-3 selecaoCategorias" id="categorias-container">
-                            <label class="form-label fw-bold small text-uppercase">Categoria</label>
-                            <select id="categorias" class="form-select">
-                                <option value="Alimentação">Alimentação</option>
-                                <option value="Transporte">Transporte</option>
-                                <option value="Saúde">Saúde</option>
-                                <option value="Educação">Educação</option>
-                                <option value="Lazer">Lazer</option>
-                                <option value="Outros">Outros</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn btn-success w-100 fw-bold py-2 mt-2" id="efetuarTransacao">Finalizar Transação</button>
-                    </form>
-                </div>
+<div class="modal fade" id="modalDialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header bg-dark text-white py-3 px-4 rounded-top-4">
+                <h5 class="modal-title fw-bold">Nova Transação</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </dialog>
+            <div class="modal-body p-4">
+                <form id="formTransacao">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-uppercase">Tipo</label>
+                        <select id="tipo" class="form-select" required>
+                            <option value="receita">Receita</option>
+                            <option value="despesa">Despesa</option>
+                        </select>
+                    </div>
 
-        <dialog id="modalDialogEditar" class="border-0 rounded-4 shadow-lg p-0" style="max-width: 500px; width: 90%;">
-            <div class="card border-0">
-                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3 px-4 rounded-top-4">
-                    <h3 class="mb-0 fs-5 fw-bold">Editar Transação</h3>
-                    <button type="button" class="btn-close btn-close-white buttonFechar"></button>
-                </div>
-                <div class="card-body p-4">
-                    <form id="formEditarTransacao">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-uppercase">Tipo</label>
-                            <select id="tipo" class="form-select" required>
-                                <option value="receita">RECEITA</option>
-                                <option value="despesa">DESPESA</option>
-                            </select>
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-uppercase">Valor R$</label>
+                        <input id="valor" class="form-control" type="number" placeholder="0.00" min="0" step="0.01" required />
+                    </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-uppercase">Valor R$</label>
-                            <input id="valor" class="form-select" type="number" placeholder="0.00" min="0" step="0.01" required />
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-uppercase">Data</label>
+                        <input id="data" class="form-control" type="date" required />
+                    </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-uppercase">Data</label>
-                            <input id="data" class="form-control" type="date" required />
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-uppercase">Descrição</label>
+                        <input id="descricao" class="form-control" type="text" placeholder="Ex: Mercado, Salário..." required />
+                    </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small text-uppercase">Descrição</label>
-                            <input id="descricao" class="form-control" type="text" placeholder="Descrição" required />
-                        </div>
+                    <div class="mb-3" id="categorias-container">
+                        <label class="form-label fw-bold small text-uppercase">Categoria</label>
+                        <select id="categorias" class="form-select">
+                        </select>
+                    </div>
 
-                        <div class="mb-3 selecaoCategorias">
-                            <label class="form-label fw-bold small text-uppercase">Categoria</label>
-                            <select id="categorias" class="form-select">
-                                <option value="Alimentação">Alimentação</option>
-                                <option value="Transporte">Transporte</option>
-                                <option value="Saúde">Saúde</option>
-                                <option value="Educação">Educação</option>
-                                <option value="Lazer">Lazer</option>
-                                <option value="Outros">Outros</option>
-                            </select>
-                        </div>
-
-                        <div class="d-flex gap-2 mt-4">
-                            <button type="submit" class="btn btn-success flex-grow-1 fw-bold py-2">Salvar Edições</button>
-                            <button type="button" class="btn btn-outline-danger px-4" id="excluirTransacao">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                    <button type="submit" class="btn btn-success w-100 fw-bold py-2 mt-2">Salvar Transação</button>
+                </form>
             </div>
-        </dialog>
-    </main>
+        </div>
+    </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/src/alissonTransacoes/scriptTransacoes.js"></script>
-</body>
+<div class="modal fade" id="modalDialogEditar" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header bg-dark text-white py-3 px-4 rounded-top-4">
+                <h5 class="modal-title fw-bold">Editar Transação</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="formEditarTransacao">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-uppercase">Tipo</label>
+                        <select id="tipo" class="form-select" required>
+                            <option value="receita">Receita</option>
+                            <option value="despesa">Despesa</option>
+                        </select>
+                    </div>
 
-</html>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-uppercase">Valor R$</label>
+                        <input id="valor" class="form-control" type="number" placeholder="0.00" min="0" step="0.01" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-uppercase">Data</label>
+                        <input id="data" class="form-control" type="date" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-uppercase">Descrição</label>
+                        <input id="descricao" class="form-control" type="text" placeholder="Descrição" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-uppercase">Categoria</label>
+                        <select id="categorias" class="form-select">
+                        </select>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-success flex-grow-1 fw-bold py-2">Salvar Alterações</button>
+                        <button type="button" class="btn btn-outline-danger px-4" id="excluirTransacao">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
